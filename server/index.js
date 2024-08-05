@@ -20,7 +20,7 @@ mongoose.connect("mongodb://127.0.0.1:27017/SMARTECH")
 
 
 
-  app.get('/search', async (req, res) => {
+  app.post('/search', async (req, res) => {
     console.log('Received search request:', req.body);
   try {
     const { NameE, TypeE, NameK, URL, Configuration, TypeK } = req.body;
