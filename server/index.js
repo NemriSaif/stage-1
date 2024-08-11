@@ -59,16 +59,103 @@ mongoose.connect("mongodb://127.0.0.1:27017/SMARTECH")
 });
 
 app.get('/Dashboard/search', async (req, res) => {
-    try {
-      const { field, term } = req.query;
-      const query = { [field]: { $regex: term, $options: 'i' } };
-      const clients = await ClientModel.find(query);
-      res.json(clients);
-    } catch (error) {
-      res.status(500).json({ message: 'Error searching clients', error });
+  try {
+    const { term } = req.query;
+    const query = {
+      $or: [
+        { Name: { $regex: term, $options: 'i' } },
+        { Code: { $regex: term, $options: 'i' } },
+        { Contract: { $regex: term, $options: 'i' } },
+        { Address: { $regex: term, $options: 'i' } }
+      ]
+    };
+    const clients = await ClientModel.find(query);
+    res.json(clients);
+  } catch (error) {
+    res.status(500).json({ message: 'Error searching clients', error });
+  }
+});
+
+app.get('/Details/searchEnv', async (req, res) => {
+  try {
+    const { clientId, term } = req.query;
+    const client = await ClientModel.findById(clientId).populate('Environments');
+
+    if (!client) {
+      return res.status(404).json({ message: 'Client not found' });
     }
-  });
-  
+
+    const environmentQuery = {
+      $or: [
+        { Name: { $regex: term, $options: 'i' } },
+        { Type: { $regex: term, $options: 'i' } }
+      ]
+    };
+
+    const matchingEnvironments = client.Environments.filter(env => 
+      environmentQuery.$or.some(condition => 
+        new RegExp(condition[Object.keys(condition)[0]].$regex, 'i').test(env[Object.keys(condition)[0]])
+      )
+    );
+
+    res.json(matchingEnvironments);
+  } catch (error) {
+    res.status(500).json({ message: 'Error searching environments', error });
+  }
+});
+
+
+app.get('/Details/searchKey', async (req, res) => {
+  try {
+    const { clientId, environmentId, term } = req.query;
+    console.log('Searching for clientId:', clientId, 'with term:', term);
+
+    const client = await ClientModel.findById(clientId).populate({
+      path: 'Environments',
+      match: { _id: environmentId },
+      populate: {
+        path: 'Keys',
+        model: 'Key',
+      }
+    });
+    if (!client) {
+      console.log('Client not found');
+      return res.status(404).json({ message: 'Client not found' });
+    }
+
+    console.log('Client found:', client._id);
+    console.log('Number of environments:', client.Environments.length);
+
+    if (client.Environments.length === 0) {
+      console.log('Environment not found');
+      return res.status(404).json({ message: 'Environment not found' });
+    }
+    const environment = client.Environments[0];
+    console.log('Environment:', environment._id, 'Number of keys:', environment.Keys.length);
+
+    const keyQuery = {
+      $or: [
+        { Name: { $regex: new RegExp(term, 'i') } },
+        { URL: { $regex: new RegExp(term, 'i') } },
+        { Configuration: { $regex: new RegExp(term, 'i') } },
+        { Type: { $regex: new RegExp(term, 'i') } },
+      ],
+    };
+
+    const matchingKeys = environment.Keys.filter((key) =>
+      keyQuery.$or.some((condition) => {
+        const field = Object.keys(condition)[0];
+        return new RegExp(condition[field].$regex).test(key[field]);
+      })
+    );
+
+    console.log('Number of matching keys:', matchingKeys.length);
+    res.json(matchingKeys);
+  } catch (error) {
+    console.error('Error in searchKey:', error);
+    res.status(500).json({ message: 'Error searching keys', error: error.message, stack: error.stack });
+  }
+});
 
 
 //Fetching data functions
