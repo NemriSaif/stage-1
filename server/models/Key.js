@@ -6,7 +6,7 @@ const KeySchema= mongoose.Schema({
     URL:String,
     Configuration:String,
     Type:String,
-    Environment:{type: mongoose.Schema.Types.ObjectId, ref:'environment'}
+    Environment:{type: mongoose.Schema.Types.ObjectId, ref:'Environment'}
 })
 
 const KeyModel=mongoose.model("Key",KeySchema)

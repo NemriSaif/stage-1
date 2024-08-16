@@ -196,7 +196,11 @@ function Details() {
 
 }
   let indexOfFirstEnv;
-    if (indexOfLastEnv === totalEnvs) {
+    if(totalEnvs==0){
+      indexOfLastEnv=0;
+      indexOfLastEnv=0;
+    }
+    else if (indexOfLastEnv === totalEnvs) {
       indexOfFirstEnv = totalEnvs - (totalEnvs % itemsPerPage);
       if (totalEnvs % itemsPerPage === 0) {
           indexOfFirstEnv = totalEnvs - itemsPerPage ; // If the last page is a full page
@@ -227,26 +231,26 @@ function Details() {
       return env?.Keys?.length || 0;
   };
   const getCurrentKeys = (envId) => {
-    const totalKeys = getTotalKeysForEnv(envId);
-    let indexOfLastKey = (currentKeyPage[envId] || 1) * itemsPerPage;
-  
-    if (indexOfLastKey > totalKeys) {
-      indexOfLastKey = totalKeys;
-    }
-  
-    let indexOfFirstKey;
-    if (indexOfLastKey === totalKeys) {
-      indexOfFirstKey = totalKeys - (totalKeys % itemsPerPage);
-      if (totalKeys % itemsPerPage === 0) {
-        indexOfFirstKey = totalKeys - itemsPerPage; // If the last page is a full page
-      }
-    } else {
-      indexOfFirstKey = indexOfLastKey - itemsPerPage;
-    }
-  
     const env = clientDetails.Environments.find(env => env._id === envId);
-    return env.Keys.slice(indexOfFirstKey, indexOfLastKey);
-  };
+  if (!env || !env.Keys) {
+    return { keys: [], indexOfFirstKey: 0, indexOfLastKey: 0, totalKeys: 0 };
+  }
+
+  let totalKeys = env.Keys.length;
+  let indexOfLastKey = (currentKeyPage[envId] || 1) * itemsPerPage;
+  
+  if (indexOfLastKey > totalKeys) {
+    indexOfLastKey = totalKeys;
+  }
+  
+  let indexOfFirstKey = indexOfLastKey - itemsPerPage;
+  if (indexOfFirstKey < 0) {
+    indexOfFirstKey = 0;
+  }
+  
+  const keys = env.Keys.slice(indexOfFirstKey, indexOfLastKey);
+  return { keys, indexOfFirstKey, indexOfLastKey, totalKeys };
+};
 
     const getTotalKeyPages = (envId) => {
       const env = clientDetails.Environments.find(env => env._id === envId);
@@ -274,7 +278,8 @@ function Details() {
         [envId]: pageNumber
       }));
     };
-  const totalKeys = (envId) => getTotalKeysForEnv(envId);
+   
+  //let totalKeys = (envId) => getTotalKeysForEnv(envId);
   const totalKeyPages = (envId) => getTotalKeyPages(envId);
   if (isLoading) {
     return <div>Loading...</div>;
@@ -350,15 +355,24 @@ function Details() {
                    <nav>
                                     <ul className="pagination mb-0">
                                         {/* Previous Page Icon */}
+                                        <li>
+                                          {totalEnvs> 0 ? (
+                                            <>
+                                            <span>{indexOfFirstEnv+1}</span>
+                                            <span>-</span>
+                                            <span>{indexOfLastEnv}</span>
+                                            </>
+                                          ) : (
+                                            <span>0</span>
+                                          )}
+                                        
+                                        <span> out of {totalEnvs}</span>
+                                        </li>
                                         <li >
                                             <ChevronLeft className={`page-item ${currentEnvPage === 1 ? 'disabled' : ''}`} onClick={prevEnvPage} />
-                                            <span>{indexOfFirstEnv+1}</span>
+                                            
                                         </li>
-                                        <span>-</span>
-                                        {/* Next Page Icon */}
-                                        <li >
-                                        <span>{indexOfLastEnv}</span>
-                                        <span> out of {totalEnvs}</span>
+                                        <li > 
                                             <ChevronRight className={`page-item ${currentEnvPage === totalEnvPages ? 'disabled' : ''}`} onClick={nextEnvPage} />
                                         </li>   
                                     </ul>
@@ -381,6 +395,7 @@ function Details() {
                   </thead>
                   <tbody>
                     {(isEnvSearchActive ? envSearchResults : currentEnvs).map(env => (
+                      
                       <React.Fragment key={env._id}>
                         <tr>
                           <td>{env.Name}</td>
@@ -414,37 +429,36 @@ function Details() {
                                   type="text"
                                   value={keySearchQuery}
                                   onChange={(e) => setKeySearchQuery(e.target.value)}
-                                  onClick={()=>setSelectedEnvId(env._id)}
-                                  
+                                  onClick={()=>setSelectedEnvId(env._id)}     
                                   placeholder="Search keys..."
                                   className="form-control d-inline-block w-50 mr-2"
                                 />
                                 {isKeySearchActive && (
                                   <RotateCw onClick={clearKeySearch} />
                                 )}
+                                    {/* Key pagination */}
+                                {(() => {
+                                  const { indexOfFirstKey, indexOfLastKey, totalKeys } = getCurrentKeys(env._id);
+                                  return (
                                     <nav>
                                       <ul className="pagination mb-0">
-                                        {/* Previous Page Icon */}
                                         <li>
-                                          <ChevronLeft
-                                            className={`page-item ${currentKeyPage[env._id] === 1 ? 'disabled' : ''}`}
-                                            onClick={() => prevKeyPage(env._id)}
-                                          />
-                                          <span>{((currentKeyPage[env._id] || 1) - 1) * itemsPerPage + 1}</span>
-                                        </li>
-                                        <span>-</span>
-                                        {/* Next Page Icon */}
-                                        <li>
-                                          <span>{Math.min((currentKeyPage[env._id] || 1) * itemsPerPage, getTotalKeysForEnv(env._id))}</span>
-                                          <span> out of {getTotalKeysForEnv(env._id)}</span>
-                                          <ChevronRight
-                                            className={`page-item ${currentKeyPage[env._id] === totalKeyPages ? 'disabled' : ''}`}
-                                            onClick={() => nextKeyPage(env._id)}
-                                          />
+                                          {totalKeys > 0 ? (
+                                            <>
+                                              <span>{indexOfFirstKey + 1}</span>
+                                              <span>-</span>
+                                              <span>{indexOfLastKey}</span>
+                                            </>
+                                          ) : (
+                                            <span>0</span>
+                                          )}
+                                          <span> out of {totalKeys}</span>
                                         </li>
                                       </ul>
                                     </nav>
-                              </div>
+                                  );
+                                })()}
+                                </div>
                               <table className="table table-striped table-hover">
                                 <thead>
                                   <tr>
@@ -456,7 +470,8 @@ function Details() {
                                   </tr>
                                 </thead>
                                 <tbody>
-                                  {(isKeySearchActive ? keySearchResults : getCurrentKeys(env._id)).map(key => (
+                                {(isKeySearchActive ? (keySearchResults || []) : (getCurrentKeys(env._id).keys || [])).map(key => (
+
                                     <tr key={key._id}>
                                       <td>{key.Name}</td>
                                       <td>{key.URL}</td>

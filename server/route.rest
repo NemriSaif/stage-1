@@ -1,0 +1,74 @@
+POST    
+Content-Type: application/json
+
+{
+    "Name":"aslema",
+    "Code":"code",
+    "Contract":"contraaaat",
+    "Address":"Centre Ville"
+}
+###
+
+PATCH http://localhost:3001/Clients/66ae74303312d6b322b0548c
+Content-Type: application/json
+
+{
+    "Name":"ism jdid",
+    "Contract":"111111"
+}
+
+###
+
+DELETE http://localhost:3001/Clients/66b9fa49ebc2fba3d9aeaa88
+
+###
+POST http://localhost:3001/Environments
+Content-Type: application/json
+
+{
+    "Name":"name",
+    "Type":"illi houaaa",
+    "Client":"66b2147302aabfa5e190424d"
+}
+
+###
+PATCH  http://localhost:3001/Environments/66bb56db8bf9d2fd1b5b41fd
+Content-Type: application/json
+
+{
+    "ClientId":"66b9fa49ebc2fba3d9aeaa88"
+
+}
+
+###
+DELETE http://localhost:3001/Environments/66afb6b22cc447e26dad764a
+
+###
+
+POST http://localhost:3001/Keys
+Content-Type: application/json
+
+{
+    "Name":"name",
+    "URL":"localhost:3001",
+    "Configuration":"config",
+    "Type":"illi houaaa"
+}
+
+###
+PATCH  http://localhost:3001/Keys/669d4e679683a4559d626e2d
+Content-Type: application/json
+
+{
+    "Name":"aaaaaaaa",
+    "URL":"localhost:300",
+    "Configuration":"configggggg",
+    "Type":"illi houaaa"
+    
+}
+
+###
+DELETE http://localhost:3001/Keys/669d4e679683a4559d626e2d
+
+###
+GET http://localhost:3001/Keys/66a23e94fba24518754da89b
