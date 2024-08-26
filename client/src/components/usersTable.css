@@ -1,0 +1,264 @@
+/* General Styles */
+.table-wrapper {
+  margin: 20px auto;
+  width: 80%;
+  border-radius: 8px; /* Rounded edges */
+  overflow: hidden; /* Ensure rounded corners for child elements */
+}
+
+.users-table {
+  width: 100%;
+  border-collapse: collapse;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3); /* Shadow effect */
+  background-color: white; /* White background */
+  border-radius: 8px; /* Rounded edges */
+}
+
+.users-table th,
+.users-table td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.users-table th {
+  background-color: #f4f4f4;
+}
+
+.users-table tr:hover {
+  background-color: #f1f1f1;
+}
+
+/* Search Popout */
+.search-popout {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4); /* Dark overlay */
+}
+
+.search-content {
+  background-color: #fff;
+  padding: 20px; /* Padding for card effect */
+  border-radius: 12px; /* Rounded corners */
+  width: 90%;
+  max-width: 600px; /* Max width for large screens */
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2); /* Soft shadow */
+  position: relative;
+}
+
+.search-content .close {
+  color: #555;
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.search-content .close:hover {
+  color: #000;
+}
+
+.search-content h3 {
+  margin-bottom: 20px;
+  font-size: 22px;
+  font-weight: 600;
+  color: #333;
+}
+
+.search-content label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: 500;
+  color: #444;
+}
+
+.search-content input {
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 16px;
+  width: calc(100% - 24px); /* Full width minus padding */
+  margin-bottom: 15px;
+}
+
+.search-button {
+  background-color: #007bff;
+  border: none;
+  border-radius: 6px;
+  color: white;
+  cursor: pointer;
+  padding: 12px 24px;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+
+.search-button:hover {
+  background-color: #0056b3;
+}
+
+/* Table Controls */
+.table-controls {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 10px;
+}
+
+.pagination-info {
+  margin-left: 20px;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.action-icons {
+  display: flex;
+  gap: 10px;
+}
+
+.icon {
+  cursor: pointer;
+  font-size: 18px;
+  color: #555;
+}
+
+.icon:hover {
+  color: #007bff; /* Change color on hover */
+}
+
+.view-icon {
+  color: #28a745; /* Green for view */
+}
+
+.edit-icon {
+  color: #ffc107; /* Yellow for edit */
+}
+
+.delete-icon {
+  color: #dc3545; /* Red for delete */
+}
+
+/* Pagination */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px 0;
+}
+
+.pagination button {
+  padding: 8px 16px;
+  border: none;
+  background-color: #f4f4f4;
+  cursor: pointer;
+  margin: 0 5px;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.pagination button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.pagination span {
+  padding: 8px 16px;
+  margin: 0 5px;
+  font-size: 16px;
+}
+
+/* Modals */
+.modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+  background-color: #f9f9f9;
+  padding: 30px;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 600px;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+  position: relative;
+}
+
+.modal-content .close {
+  color: #555;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.modal-content .close:hover {
+  color: #000;
+}
+
+.modal-content h3 {
+  margin-bottom: 20px;
+  font-size: 24px;
+  font-weight: 600;
+  color: #333;
+}
+
+.modal-content form {
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-content label {
+  margin-bottom: 10px;
+  font-weight: 500;
+  color: #444;
+}
+
+.modal-content input {
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 16px;
+}
+
+.modal-content button {
+  padding: 10px 20px;
+  margin-top: 10px;
+  font-size: 16px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.modal-content button[type="submit"] {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  transition: background-color 0.3s;
+}
+
+.modal-content button[type="submit"]:hover {
+  background-color: #45a049;
+}
+
+.modal-content button[type="button"] {
+  background-color: #f1f1f1;
+  color: #555;
+  border: none;
+  margin-left: 10px;
+}

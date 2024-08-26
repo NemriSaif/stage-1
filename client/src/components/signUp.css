@@ -1,0 +1,99 @@
+/* register.css */
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap');
+
+body {
+  font-family: 'Noto Sans JP', sans-serif;
+}
+
+.signup-containerR {
+  min-height: 100vh;
+  background-color: #031436;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+}
+.error-message{
+  color: red;
+}
+.card-containerR {
+  background-color: #ffffff;
+  border-radius: 1.25rem; /* Slightly smaller border radius */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Smaller box shadow */
+  overflow: hidden;
+  width: 100%;
+  max-width: 70rem; /* Slightly smaller max-width */
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.left-panelR {
+  background-color: #141135;
+  padding: 1.5rem; /* Smaller padding */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  color: #ffffff;
+}
+
+.right-panelR {
+  padding: 1.5rem; /* Smaller padding */
+}
+
+.headingR {
+  font-size: 2rem; /* Slightly smaller font size */
+  font-weight: bold;
+  margin-bottom: 0.75rem; /* Smaller margin bottom */
+}
+
+.subheadingR {
+  font-size: 1.25rem; /* Smaller font size */
+  margin-bottom: 0.75rem; /* Smaller margin bottom */
+}
+
+.form-groupR {
+  margin-bottom: 0.75rem; /* Smaller margin bottom */
+}
+
+.form-labelR {
+  font-size: 1rem; /* Smaller font size */
+  font-weight: medium;
+  margin-bottom: 0.75rem; /* Smaller margin bottom */
+  display: block;
+}
+
+.form-inputR,
+.form-selectR {
+  width: 90%;
+  padding: 0.75rem; /* Smaller padding */
+  border-radius: 0.5rem; /* Smaller border radius */
+  border: 1px solid #d1d5db;
+  margin-bottom: 0.75rem; /* Smaller margin bottom */
+  font-size: 1rem; /* Smaller font size */
+}
+
+.sign-up-btnR {
+    font-family: "Noto Sans JP", sans-serif;
+    background-color: #11101d;
+    border: none;
+    color: #ffffff;
+    border-radius: 0.75rem;
+    padding: 1rem 2rem;
+    cursor: pointer;
+    display: block;
+    width: 90%;
+    text-align: center;
+    margin-top: 1rem;
+    font-size: 1.25rem;
+  }
+  .birthday-select-group {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .birthday-select-group .form-selectR {
+    flex-grow: 1;
+    margin: 0 5px; /* Adjust spacing between selects */
+  }

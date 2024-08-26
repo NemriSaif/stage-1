@@ -1,0 +1,171 @@
+/* Profile Page Styles */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+}
+
+
+
+/* Ensure the container takes up the available space */
+.profile-page__container {
+  width: 60%;
+  margin: 200px auto;
+  padding: 20px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  position: relative;
+  text-align: center;
+}
+
+/* Ensure the header and other sections fit properly */
+.profile-page__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.profile-page__header-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.profile-page__pic {
+  position: absolute;
+  top: -75px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.profile-page__pic img {
+  border-radius: 50%;
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border: 5px solid rgb(255, 255, 255);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.profile-page__pic img:hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.profile-page__info {
+  margin-top: 100px;
+  padding-top: 0;
+  text-align: center;
+}
+
+.profile-page__info h1 {
+  font-size: 1.8em;
+  margin: 0;
+  color: #333;
+}
+
+.profile-page__info p {
+  margin: 5px 0;
+  color: gray;
+  font-size: 1em;
+}
+
+.profile-page__actions {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.profile-page__edit-btn,
+.profile-page__delete-btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1em;
+  transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+}
+
+.profile-page__edit-btn {
+  background-color: #0095d4;
+  color: white;
+}
+
+.profile-page__delete-btn {
+  background-color: #ff5a5f;
+  color: white;
+}
+
+.profile-page__edit-btn:hover,
+.profile-page__delete-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.profile-page__edit-btn:hover {
+  background-color: #0084c1;
+}
+
+.profile-page__delete-btn:hover {
+  background-color: #e14b50;
+}
+
+.profile-page__confirm-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.profile-page__confirm-content {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+  width: 300px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.profile-page__confirm-content h3 {
+  margin: 0 0 10px;
+}
+
+.profile-page__confirm-content p {
+  margin: 0 0 20px;
+}
+
+.profile-page__confirm-content input {
+  width: calc(100% - 20px);
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.profile-page__confirm-content button {
+  padding: 10px 20px;
+  margin: 5px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.profile-page__confirm-content button:hover {
+  background-color: #ddd;
+}
+
+.profile-page__confirm-content button:last-child {
+  background-color: #ff5a5f;
+  color: white;
+}
